@@ -23,7 +23,7 @@ import java.util.Set;
  * program does not crash and that it prints at least 5 different
  * greetings.
  */
-public class RandomHelloTest {
+public class RandomHelloTest{
 
     /** Number of times to run the greeting test until we're quite sure we'd have seen all the greetings */
     private int TIMES_TO_TEST = 1000;
