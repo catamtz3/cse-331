@@ -84,7 +84,7 @@ public class Box implements Iterable<Ball> {
      * ascending size.
      */
     public Iterator<Ball> getBallsFromSmallest() {
-        TreeSet<Ball> mimic = new TreeSet<Ball>(new compareBalls());
+        TreeSet<Ball> mimic = new TreeSet<Ball>(new compareBall());
         Iterator<Ball> iter = iterator();
         while (iter.hasNext()){
             mimic.add(iter.next());
@@ -93,7 +93,7 @@ public class Box implements Iterable<Ball> {
 
     }
 
-    public class compareBalls implements Comparator<Ball> {
+    public class compareBall implements Comparator<Ball> {
         public int compare(Ball ballOne, Ball ballTwo) {
             if (ballOne.getVolume() < ballTwo.getVolume()) {
                 return -1;
