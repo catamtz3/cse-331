@@ -79,6 +79,7 @@ public final class RatTerm {
         } else {
             expt=e;
         }
+        checkRep();
     }
 
     /**

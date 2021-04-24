@@ -3,10 +3,23 @@
 ###########################################################################
 
 1. Multiplication Pseudocode
-
+    r = p * q;
+    set r = q by making a term-by-term copy of all terms in q to r;
+    {Inv: r = q * p0 * p1 * ... * pi-1}
+    foreach term tp in p:
+        if tr has the same degree of tp
+            then replace tr in r with the multiplication of tp and tr
+            else get rid of tr
+        return r
 
 
 2. Division Pseudocode
+        r = p / q;
+        set r = p by making a term-by-term copy of all terms in p to r
+        {Inv: r = p / q0 / q1/ ... / qi-1 && p.term >= q.term}
+        while p.term >= q.term
+            r = p.term - q.term
+        if r.term >= 0
 
 
 
@@ -19,14 +32,23 @@
 ###########################################################################
 
 1. Weakened Rep Invariant
-
+    In order for the code to function with a weakened invariant, the methods .equals() and .toString() would
+    have to be altered. The method .equals() is checking to see if the RatNum is the same and it's not taking into
+    account if the fraction is reduced or not, which will cause errors. .toString() would also have to be changed
+    because in the method description it says that the fraction will be reduced, and the current method is
+    counting on the fraction already being reduced previously so it has no reduction measures in its code.
+    These can be fixed by simply adding code to each method that'd reduce the fraction, but it takes up
+    more lines than it does currently and is less efficient.
 
 
 2. Alternate add, sub, mul, div
-
+    The spec requires that the code is immutable, therefore making it mutable is breaking its own requirements.
+    For this change, the effects and requires for the methods will have to be shifted to match the mutable change.
 
 
 3. Constructor checkReps
+    The class RatNum is immutable, so it's only necessary to check if it breaks the invariant at the constructor
+    because it won't be altered throughout the code.
 
 
 
@@ -35,7 +57,7 @@
 ###########################################################################
 
 1. Calls to checkRep in RatTerm
-
+    I called checkRep at the end of my constructors because the class is immutable.
 
 
 2. Weakened Rep Invariant
@@ -43,11 +65,14 @@
 
 
 3. Alternate Rep Invariant
-
+    The only change necessary would be to alter the constructor to initialize NaN with exponent 0.
+    toString() could also be altered to return "NaN^0" instead of just NaN. Creating NaN like this would
+    add few lines of code, but it doesn't alter complexity by very much.
 
 
 4. Preferred Invariants
-
+    After looking at the methods, altering the code to fit in NaN with exponent zero has hardly any more work
+    required. It could easily be implemented, so I prefer this one.
 
 
 
@@ -55,10 +80,17 @@
 ###########################################################################
 
 1. Calls to checkRep in RatPoly
-
+    I called checkRep at the constructor because the class is once again immutable so it is unnecessary to call
+    it anywhere else.
 
 
 2. Alternate Representation
+    Switching the code from what it is currently to lists wouldn't be too different. The RatPolys are already stored
+    in terms of coefficients and efficients, so it's just a matter of switching syntax to match. Creating lists would
+    create the need for slightly more code in construction, but besides that it would be relatively similar.
+    I'd prefer storing the exponent and coefficient in two separate lists. It was hard for me to understand the syntax
+    of the original RatPoly and getting used to calling the functions, and my mind can better visualize the concepts
+    in lists even if it's slighlty more work.
 
 
 
