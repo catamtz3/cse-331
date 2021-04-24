@@ -16,15 +16,22 @@
 2. Division Pseudocode
         r = p / q;
         set r = p by making a term-by-term copy of all terms in p to r
-        {Inv: r = p / q0 / q1/ ... / qi-1 && p.term >= q.term}
-        while p.term >= q.term
-            r = p.term - q.term
-        if r.term >= 0
-
+        {Inv: r = p / q0 / q1/ ... / qi-1 && p.degree >= q.degree}
+        while p.term is greater than or equal to q.term
+            then d = p.term.degree subtracted from q.term.degree
+        if d.term is greater than or equal to 0
+            then subtract the product of p and d from r
+        return r
 
 
 3. Division Example: (x3+x-1) / (x+1) = x2-x+2
-
+        r = x3+x-1 / x+1;
+        set r = x3+x-1
+        while p.term is greater than or equal to q.term (YES 3 > 1)
+            then d = p.term.degree subtracted from q.term.degree ( = 2)
+        if d.degree is greater than or equal to 0 (YES 2)
+            then subtract the product of p and d from r (x2-x+2)
+        return r (x2-x+2)
 
 
 
@@ -61,7 +68,12 @@
 
 
 2. Weakened Rep Invariant
-
+    The constructor and toString() methods would need to change. The constructor has no reason to check
+    if the coefficient is 0 with this change and the toString() method would need to be altered to check for
+    this special case and if the output is correct. More code is necessary for this change since it would take a
+    few lines to alter toString(), but the constructor would lose a few lines so it doesn't make a huge difference
+    in terms of the two methods that would need to be altered to be correct. Some other methods would need to
+    consider this new special case, like add(). The extra lines of code would be a disadvantage.
 
 
 3. Alternate Rep Invariant
@@ -90,7 +102,7 @@
     create the need for slightly more code in construction, but besides that it would be relatively similar.
     I'd prefer storing the exponent and coefficient in two separate lists. It was hard for me to understand the syntax
     of the original RatPoly and getting used to calling the functions, and my mind can better visualize the concepts
-    in lists even if it's slighlty more work.
+    in lists even if it's slightly more work.
 
 
 

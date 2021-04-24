@@ -146,6 +146,9 @@ public final class RatPoly {
      * @spec.requires !this.isNaN()
      */
     public RatTerm getTerm(int deg) {
+        /**
+         * {Invariant: getTerm() = getTerm(terms[0], terms [1], ..., terms[i-1]}
+         */
         for (int i = 0; i < terms.size(); i++){
             if (terms.get(i).getExpt() == deg){
                 return terms.get(i);
@@ -161,6 +164,9 @@ public final class RatPoly {
      */
 
     public boolean isNaN() {
+        /**
+         * {Invariant: isNaN() = isNan(terms[0], terms [1], ..., terms[i-1]}
+         */
         for (RatTerm j: terms){
             if (j.isNaN()){
                 return true;
@@ -181,6 +187,9 @@ public final class RatPoly {
      * @see RatTerm regarding (C . E) notation
      */
     private static void scaleCoeff(List<RatTerm> lst, RatNum scalar) {
+        /**
+         * {Invariant: scaleCoeff() = scaleCoeff(lst[0], lst[1], ..., lst[i-1]}
+         */
         for (int i = 0; i < lst.size(); i++){
             lst.set(i, new RatTerm(lst.get(i).getCoeff().mul(scalar), lst.get(i).getExpt()));
         }
@@ -198,6 +207,9 @@ public final class RatPoly {
      * @see RatTerm regarding (C . E) notation
      */
     private static void incremExpt(List<RatTerm> lst, int degree) {
+        /**
+         * {Invariant: degree != 0 && incremExpt() = incremExpt(lst[0], lst[1], ..., lst[i-1]}
+         */
         if (degree != 0){
             for (int i = 0; i <lst.size(); i++){
                 lst.set(i, new RatTerm(lst.get(i).getCoeff(), lst.get(i).getExpt() + degree));
@@ -230,6 +242,9 @@ public final class RatPoly {
      * cofind(lst,newTerm.getExpt()) + newTerm.getCoeff())
      */
     private static void sortedInsert(List<RatTerm> lst, RatTerm newTerm) {
+        /**
+         * {Invariant: newTerm != 0 && sortedInsert() = sortedInsert(lst[0], lst[1], ..., lst[i-1]}}
+         */
         if (newTerm.isZero())
             return;
         for (int i = 0; i < lst.size(); i++) {
@@ -259,6 +274,9 @@ public final class RatPoly {
             return NaN;
         } else {
             ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
+            /**
+             * Invariant: { != this.isNaN() && negate() = terms-[0], terms-[1], .., terms-[i-1]}
+             */
             for (RatTerm term : terms) {
                 copy.add(new RatTerm(term.getCoeff().mul(new RatNum(-1)), term.getExpt()));
             }
@@ -280,6 +298,9 @@ public final class RatPoly {
         } else {
             ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
             int num = Math.max(degree(), p.degree());
+            /**
+             * Invariant: { != this.isNaN() && != p.isNaN() && add() = terms[0] +terms[1] + , .., terms[maxDegree]}
+             */
             for (int i = 0; i <= num; i++) {
                 sortedInsert(copy, getTerm(i));
                 sortedInsert(copy, p.getTerm(i));
@@ -313,6 +334,10 @@ public final class RatPoly {
             return NaN;
         }
         ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
+        /**
+         * Invariant: {!=this.isNaN() && != p.isNaN() && i <= p.degree() && i<= degree() &&
+         * mul() = terms[0], terms[1], ..., terms [degree()]
+         */
         for (int i = 0; i <= degree(); i++) {
             for (int j = 0; j <= p.degree(); j++) {
                 sortedInsert(copy, getTerm(i).mul(p.getTerm(j)));
@@ -361,6 +386,10 @@ public final class RatPoly {
         }
         ArrayList<RatTerm> result = new ArrayList<RatTerm>();
             RatPoly t = new RatPoly(terms);
+        /**
+         * {Invariant: != this.isNaN() && != p.isNaN() && != p.equals(ZERO) &&
+         * t.terms.size() != 0 && t.degree() >= p.degree() && q = terms[0], terms[1], ..., terms[t.degree]}
+         */
             while (t.terms.size() != 0 && t.degree() >= p.degree()) {
                 RatTerm q = t.getTerm(t.degree()).div(p.getTerm(p.degree()));
                 if (q.getExpt() >= 0) {
@@ -384,11 +413,18 @@ public final class RatPoly {
             return NaN;
         }
         ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
+        /**
+         * {Invariant: != this.isNaN() && copy = (terms[0], terms [1], ..., terms[i-1]}
+         */
         for (RatTerm term : terms) {
             if (term.getExpt() != 0) {
                 copy.add(new RatTerm(term.getCoeff(), term.getExpt()));
             }
         }
+        /**
+         * {Invariant: != this.isNaN() && copy = (copy[0.differentiate()], copy[1.differentiate()],
+         * ...,copy[i-1.antiDifferentiate()]}
+         */
         for (int i = 0; i < copy.size(); i++){
             copy.set(i, copy.get(i).differentiate());
         }
@@ -413,9 +449,17 @@ public final class RatPoly {
             return NaN;
         }
         ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
+        /**
+         * {Invariant: != this.isNaN() && != integrationConstant.isNaN() &&
+         * copy = (terms[0], terms[1] , ..., terms[i-1]}
+         */
         for (RatTerm term : terms) {
             copy.add(new RatTerm(term.getCoeff(), term.getExpt()));
         }
+        /**
+         * {Invariant: != this.isNaN() && != integrationConstant.isNaN() &&
+         * copy = (terms[0.antiDifferentiate()], terms[1.antiDifferentiate()] , ..., terms[i-1.antiDifferentiate()]}
+         */
         for (int i = 0; i < terms.size(); i++){
             copy.set(i, copy.get(i).antiDifferentiate());
         }
@@ -458,6 +502,9 @@ public final class RatPoly {
             return Double.NaN;
         }
         double total = 0;
+        /**
+         * {Invariant: != this.isNaN() && eval() = eval(terms[0 * d] + terms[1 * d] + , ..., + terms[i-1 * d]}
+         */
         for (RatTerm i : terms){
             total += i.eval(d);
         }
