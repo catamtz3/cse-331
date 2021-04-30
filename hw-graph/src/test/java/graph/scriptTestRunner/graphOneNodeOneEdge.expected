@@ -1,0 +1,11 @@
+# Create a graph
+Created graph oneNode
+
+#Add node to the graph
+Added node a to oneNode
+
+#Add edge to the graph
+added edge aa from a to a in oneNode
+
+# Get the nodes of the graph
+oneNode contains: a[aa]

@@ -1,0 +1,10 @@
+# Create a graph
+Created graph sortedGraph
+
+#Add two nodes to the graph
+Added node b to sortedGraph
+Added node a to sortedGraph
+
+
+# Get the nodes of the graph
+sortedGraph contains: a, b

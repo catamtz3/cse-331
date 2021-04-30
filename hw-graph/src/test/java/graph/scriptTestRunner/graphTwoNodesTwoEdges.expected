@@ -1,0 +1,15 @@
+# Create a graph
+Created graph twoEdges
+
+#Add two nodes to the graph
+added node a to twoEdges
+added node b to twoEdges
+
+#Add one edge between nodes a and b
+added edge ab from a to b in twoEdges
+
+#Add one edge between nodes b and a
+added edge ba from b to a in twoEdges
+
+# Get the nodes of the graph
+twoEdges contains: a[ab], b[ba]

@@ -1,0 +1,9 @@
+# Create a graph
+CreateGraph sortedGraph
+
+#Add two nodes to the graph
+AddNode sortedGraph b
+AddNode sortedGraph a
+
+# Get the nodes of the graph
+ListNodes sortedGraph

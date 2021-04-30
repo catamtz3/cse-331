@@ -8,10 +8,13 @@
     ### IntQueue1
 
     Abstraction Function:
-
+    // first element of the queue: entries[0]
+    // last element of the queue: entries[size-1]
+    // if entries has no elements: []
 
 
     Representation Invariant:
+    // elements never contain a null value
 
 
 
@@ -19,16 +22,23 @@
     ### IntQueue2
 
     Abstraction Function:
-
+    // first element of queue: entries[0]
+    // final size of queue: entries[size-1]
+    // if elements go past limit of size but has empty elements at the beginning of the queue:
+    //                      entries[size-1] goes back to entries[0] and adds elements until no more empty elements
 
 
     Representation Invariant:
-
+    // entries != null && != 0
+    // the start is greater than 0 and is less than or equal to entries.size()
 
 
 
 2. Group the snapshots of IntQueue2's internal state into groups that have the same abstract state.
-
+    Same abstract states:
+    a & d & g
+    b & h
+    c & f
 
 
 
@@ -36,26 +46,34 @@
 could possibly expose the representation, given the information available. Explain any assumptions you made.
 
     a. `public int solveEquations(int x, int y, int z)`
-
+    This method wouldn't expose the rep invariant at all since ints in Java are
+    immutable.
 
 
     b. `public String[] decode(boolean slowly)`
-
+    This could potentially expose the rep invariant since arrays are mutable in Java
+    and the method is returning an array.
 
 
     c. `private Date myBirthday()`
-
+    No, this wouldn't expose the rep since the method is private and the client can't
+    alter any of it's functionalities.
 
 
     d. `public String toString()`
-
+    This method wouldn't expose the representation because strings are
+    immutable.
 
 
     e. `public Iterator<Integer> elements()`
-
+    This could potentially expose the rep if the iterator didn't create a
+    copy of the original list since the client has access to its functionalities like
+    remove() and add().
 
 
     f. `public Deck(List<Card> cards)`
+    This could potentially expose the rep since the client can alter the deck if the
+    method didn't initially create a copy of the original list to work off of.
 
 
 
@@ -67,6 +85,16 @@ Briefly explain why you included the operations you did and why you feel they ar
 interface to a graph. If your design includes multiple classes or interfaces, explain why you
 included each one; if not, explain whether you considered additional classes and why you decided
 not to include them.
+    I designed two classes for my interface. I used one to construct the map and I used the other to
+    create the links between the two nodes to become an edge. I was initially going to use the second class
+    to solely construct the nodes and the data stored within it, but when I thought about it I realized
+    that I needed to store the link between the two nodes to use in my mapClass. For the node class,
+    I have two methods that construct the node with a null link (in case there's no edge between two nodes)
+    and I have another that constructs the link. In my mapClass, I have a few methods that I figured were necessary.
+    I have a method that constructs the graph, adds and removes nodes to the graph, and adds and removes edges to the map. These were
+    essential in the construction of the map, and the other methods are mainly to give the client details
+    about the map. Size, contains, toString, entrySet, getChildren, getParents and getEdges are all used to
+    give the client information.
 
 
 
@@ -76,6 +104,9 @@ not to include them.
 
 What was your testing strategy for this assignment? How do your script tests and JUnit tests
 differ from each other (if they do), and why?
-
+    The script tests are more generic and only test the constructor, addNode, size, entrySet, and addEdge. They
+    test the essential functionalities required to make the map, whereas the jUnit tests test everything,
+    including the methods added to give the client more control and the methods that give info about the graph to ensure it works
+    for the client. I took the 0, 1, 2 approach as specified in the hints section for the nodes edges and graphs.
 
 

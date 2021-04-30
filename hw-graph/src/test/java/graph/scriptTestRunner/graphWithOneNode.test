@@ -1,0 +1,8 @@
+# Create a graph
+CreateGraph singleNode
+
+#Add node to the graph
+addNode singleNode a
+
+# Get the nodes of the graph
+ListNodes singleNode

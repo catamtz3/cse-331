@@ -1,0 +1,12 @@
+# Create a graph
+Created graph twoNodes
+
+#Add two nodes to the graph
+added node a to twoNodes
+added node b to twoNodes
+
+#Add one edge between nodes a and b
+added edge ab from a to b in twoNodes
+
+# Get the nodes of the graph
+twoNodes contains: a[ab], b

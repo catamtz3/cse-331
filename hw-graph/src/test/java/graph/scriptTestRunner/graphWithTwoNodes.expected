@@ -1,0 +1,9 @@
+# Create a graph
+Created graph onlyTwo
+
+#Add two nodes to the graph
+added node a to onlyTwo
+added node b to onlyTwo
+
+# Get the nodes of the graph
+onlyTwo contains: a, b

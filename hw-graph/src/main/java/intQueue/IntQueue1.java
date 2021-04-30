@@ -37,6 +37,7 @@ public final class IntQueue1 {
      */
     List<Integer> entries;
 
+
     /**
      * @spec.effects constructs an empty queue
      */

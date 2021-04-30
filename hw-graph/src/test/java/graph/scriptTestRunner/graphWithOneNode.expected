@@ -1,0 +1,8 @@
+# Create a graph
+Created graph singleNode
+
+#Add node to the graph
+Added node a to singleNode
+
+# Get the nodes of the graph
+singleNode contains: a
