@@ -10,14 +10,6 @@ import java.util.Set;
 public class mapClass {
 
     /**
-//     * Abstract function:
-//     *      The graph and its edges and nodes are never null.
-//     *      If the node exists and an edge exists between the node,
-//     *      the node must be in the edge.
-//     * Representation Invariant:
-//     *      Empty graph = {}
-//     *      Node in graph = a
-//     *      Edge in graph corresponding to a: a =[b, ..] b = [c, ...] ..
      *
      *
      * @spec.requires graph != null, nodes != null, edges !=null
