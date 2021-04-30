@@ -10,7 +10,6 @@
     Abstraction Function:
     // first element of the queue: entries[0]
     // last element of the queue: entries[size-1]
-    // if entries has no elements: []
 
 
     Representation Invariant:
@@ -39,6 +38,7 @@
     a & d & g
     b & h
     c & f
+    e
 
 
 
@@ -67,13 +67,12 @@ could possibly expose the representation, given the information available. Expla
 
     e. `public Iterator<Integer> elements()`
     This could potentially expose the rep if the iterator didn't create a
-    copy of the original list since the client has access to its functionalities like
-    remove() and add().
+    copy of the original list since the client has access to its functionalities.
 
 
     f. `public Deck(List<Card> cards)`
     This could potentially expose the rep since the client can alter the deck if the
-    method didn't initially create a copy of the original list to work off of.
+    method didn't initially create a copy of the original.
 
 
 
