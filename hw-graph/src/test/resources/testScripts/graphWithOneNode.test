@@ -2,7 +2,7 @@
 CreateGraph singleNode
 
 #Add node to the graph
-addNode singleNode a
+AddNode singleNode a
 
 # Get the nodes of the graph
 ListNodes singleNode

@@ -2,8 +2,8 @@
 CreateGraph onlyTwo
 
 #Add two nodes to the graph
-addNode onlyTwo a
-addNode onlyTwo b
+AddNode onlyTwo a
+AddNode onlyTwo b
 
 # Get the nodes of the graph
 ListNodes onlyTwo

@@ -1,0 +1,17 @@
+# Create a graph
+CreateGraph twoEdges
+
+#Add two nodes to the graph
+AddNode twoEdges a
+AddNode twoEdges b
+
+#Add one edge between nodes a and b
+AddEdge twoEdges a b ab
+AddEdge twoEdges b a ba
+
+# Get the nodes of the graph
+ListNodes twoEdges
+
+# Get the children of the graph
+ListChildren twoEdges a
+ListChildren twoEdges b

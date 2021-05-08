@@ -15,6 +15,9 @@ A few examples of possible Graph representations:
 1. In two or three sentences, explain an advantage and a disadvantage of each of the
 representations listed above (for example, in terms of runtime complexity, space
 complexity, or ease of implementation).
+    - collection of edges: O(1) time, less data to store than the others. Harder to implement
+    - adjacency list: O(1) time for nodes and edges, more to store than collection of edges.
+    - adjacency matrix: O(1) time for edges, takes up the most space.
 
 
 
@@ -22,7 +25,8 @@ complexity, or ease of implementation).
 2. In two to three sentences, describe the representation you chose and explain why you
 chose it. If you chose to use a different representation than one of the three we described
 above, be sure to list its advantages and disadvantages, too.
-
+    I took the adjacency list approach and used a HashMap to store the nodes as a key and the edges as values in an array.
+    It was the easiest for me to visualize and it ahd good run time and better storage than the adjacency matrix.
 
 
 
@@ -33,12 +37,15 @@ above, be sure to list its advantages and disadvantages, too.
 
 1. Describe any new tests you added and why you added them, or why you feel that your original
 tests alone are sufficient.
-
+    My initial tests weren't broad enough to test weird edge cases or test the order of the edges, so I
+    implemented more tests than my initial 0, 1 , 2 approach.
 
 
 
 2. Did you make any changes to your specifications as you were implementing your Graph? (yes/no)
 If yes, describe your changes and why you made them.
-
+    With how I implemented the Nodes class, I needed to add more parameters to my methods. I initially tried to use
+    just the edge as a parameter, but I needed the initial and secondary as parameters as well to actually access
+    the map correctly.
 
 

@@ -1,5 +1,5 @@
 # Create a graph
-Created graph twoEdges
+created graph twoEdges
 
 #Add two nodes to the graph
 added node a to twoEdges
@@ -12,4 +12,8 @@ added edge ab from a to b in twoEdges
 added edge ba from b to a in twoEdges
 
 # Get the nodes of the graph
-twoEdges contains: a[ab], b[ba]
+twoEdges contains: a b
+
+# Get the edges of the graph
+the children of a in twoEdges are: b(ab)
+the children of b in twoEdges are: a(ba)

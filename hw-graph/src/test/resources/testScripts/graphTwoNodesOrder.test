@@ -1,7 +1,7 @@
 # Create a graph
 CreateGraph sortedGraph
 
-#Add two nodes to the graph
+# Add two nodes to the graph
 AddNode sortedGraph b
 AddNode sortedGraph a
 

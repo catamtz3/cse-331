@@ -1,5 +1,5 @@
 # Create a graph
-Created graph twoNodes
+created graph twoNodes
 
 #Add two nodes to the graph
 added node a to twoNodes
@@ -9,4 +9,7 @@ added node b to twoNodes
 added edge ab from a to b in twoNodes
 
 # Get the nodes of the graph
-twoNodes contains: a[ab], b
+twoNodes contains: a b
+
+# Get the children of the graph
+the children of n1 in graph1 are: a[ab]]>

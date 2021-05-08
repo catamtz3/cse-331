@@ -6,7 +6,10 @@ AddNode twoNodes a
 AddNode twoNodes b
 
 #Add one edge between nodes a and b
-AddEdge twoNodes ab a b
+AddEdge twoNodes a b ab
 
 # Get the nodes of the graph
 ListNodes twoNodes
+
+#Get the edges of the graph
+ListChildren twoNodes a

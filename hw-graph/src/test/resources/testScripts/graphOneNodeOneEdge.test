@@ -2,10 +2,13 @@
 CreateGraph oneNode
 
 #Add node to the graph
-addNode oneNode a
+AddNode oneNode a
 
 #Add edge to the graph
-addEdge oneNode a a aa
+AddEdge oneNode a a aa
 
 # Get the nodes of the graph
 ListNodes oneNode
+
+# Get the edges of the graph
+ListChildren oneNode a

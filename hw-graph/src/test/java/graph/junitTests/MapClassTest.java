@@ -1,10 +1,13 @@
 package graph.junitTests;
 
-import graph.mapClass;
+import graph.MapClass;
+import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-public class mapClassTest {
+public class MapClassTest {
 
     private final String nodes_a = "a";
     private final String nodes_b = "b";
@@ -12,9 +15,16 @@ public class mapClassTest {
     private final String edge_ab = "ab";
     private final String edge_ba = "ba";
 
+    private MapClass<String, String, String> graphSet;
+
+    @Before
+    public void setUp() {
+        graphSet = new MapClass<>();
+    }
+
     @Test
     public void testSizeEmptyGraph(){
-        assertEquals(0, mapClass.size());
+        Assert.assertEquals(0, graphSet.size());
     }
     @Test
     public void toStringEmptyGraph(){
@@ -22,16 +32,16 @@ public class mapClassTest {
     }
     @Test
     public void addOneNode(){
-        mapClass.addNode(nodes_a);
+        graphSet.addNode(nodes_a);
     }
     @Test
     public void addNullNode(){
-        mapClass.addNode(null);
+        graphSet.addNode(null);
     }
     @Test
     public void addTwoNodes(){
-        mapClass.addNode(nodes_a);
-        mapClass.addNode(nodes_b);
+        graphSet.addNode(nodes_a);
+        graphSet.addNode(nodes_b);
     }
     @Test
     public void toStringOneNode(){
@@ -40,7 +50,7 @@ public class mapClassTest {
     }
 
     private void assertToStringWorks(String s) {
-        assertEquals(s, s.valueOf(s).toString());
+        Assert.assertEquals(s, String.valueOf(s));
     }
 
     @Test
@@ -65,129 +75,97 @@ public class mapClassTest {
     }
     @Test
     public void addEdgeEmptyGraph(){
-        mapClass.addEdge(nodes_a, nodes_b, edge_ab);
+        graphSet.addEdge(nodes_a, nodes_b, edge_ab);
     }
     @Test
     public void addEdgeNullNode(){
-        mapClass.addEdge(null, nodes_b, edge_ab);
+        graphSet.addEdge(null, nodes_b, edge_ab);
     }
     @Test
     public void addEdgeBothNodesNull(){
-        mapClass.addEdge(null, null, edge_ab);
+        graphSet.addEdge(null, null, edge_ab);
     }
     @Test
     public void addEdgeCorrect(){
         addTwoNodes();
-        mapClass.addEdge(nodes_a, nodes_b, edge_ab);
+        graphSet.addEdge(nodes_a, nodes_b, edge_ab);
     }
     @Test
     public void addEdgeSameNode(){
         addOneNode();
-        mapClass.addEdge(nodes_a, nodes_a, edge_aa);
+        graphSet.addEdge(nodes_a, nodes_a, edge_aa);
     }
     @Test
     public void addTwoEdges(){
         addTwoNodes();
-        mapClass.addEdge(nodes_a, nodes_b, edge_ab);
-        mapClass.addEdge(nodes_a, nodes_a, edge_aa);
-    }
-    @Test
-    public void removeEdgeEmptyGraph(){
-        assertFalse(mapClass.removeEdge(edge_ba));
-    }
-    @Test
-    public void removeEdgeCorrect(){
-        addEdgeCorrect();
-        assertTrue(mapClass.removeEdge(edge_ab));
-    }
-    @Test
-    public void removeEdgeWrongLabel(){
-        addEdgeCorrect();
-        assertFalse(mapClass.removeEdge(edge_ba));
-    }
-    @Test
-    public void removeEdgeSameNode(){
-        addEdgeSameNode();
-        assertTrue(mapClass.removeEdge(edge_aa));
+        graphSet.addEdge(nodes_a, nodes_b, edge_ab);
+        graphSet.addEdge(nodes_a, nodes_a, edge_aa);
     }
     @Test
     public void getChildrenEmptyGraph(){
-        mapClass.getChildren(nodes_a);
+        graphSet.getChildren(nodes_a);
     }
     @Test
     public void getChildrenWithNodeNoChildren(){
         addOneNode();
-        mapClass.getChildren(nodes_a);
+        graphSet.getChildren(nodes_a);
     }
     @Test
     public void getChildrenNodeWithOneChild(){
         addEdgeCorrect();
-        mapClass.getChildren(nodes_a);
+        graphSet.getChildren(nodes_a);
     }
     @Test
     public void getChildrenNodeWithTwoChildren(){
         addTwoEdges();
-        mapClass.getChildren(nodes_a);
+        graphSet.getChildren(nodes_a);
     }
     @Test
     public void removeNodeOneNode(){
         addOneNode();
-        assertTrue(mapClass.removeNode(nodes_a));
+        assertTrue(graphSet.removeNode(nodes_a));
     }
     @Test
     public void removeNodeEmptyGraph(){
-        assertFalse(mapClass.removeNode(nodes_a));
+        assertFalse(graphSet.removeNode(nodes_a));
     }
     @Test
     public void removeNodeNodeDoesntExist(){
         addOneNode();
-        assertFalse(mapClass.removeNode(nodes_b));
+        assertFalse(graphSet.removeNode(nodes_b));
     }
     @Test
     public void containsWhenEmpty(){
-        assertFalse(mapClass.contains(nodes_a));
+        assertFalse(graphSet.contains(nodes_a));
     }
     @Test
     public void containsNodeDoesntExist(){
         addOneNode();
-        assertFalse(mapClass.contains(nodes_b));
+        assertFalse(graphSet.contains(nodes_b));
     }
     @Test
     public void containsCorrectNode(){
         addOneNode();
-        assertTrue(mapClass.contains(nodes_a));
+        assertTrue(graphSet.contains(nodes_a));
     }
     @Test
-    public void findEdgeCorrect(){
-        addEdgeCorrect();
-        assertTrue(mapClass.findEdge(edge_ab));
-    }
-    @Test
-    public void findEdgeNoEdgesInGraph(){
-        assertFalse(mapClass.findEdge(edge_aa));
-    }
-    @Test
-    public void findEdgeWrongName(){
-        addEdgeCorrect();
-        assertFalse(mapClass.findEdge(edge_ba));
-    }
-    @Test
-    public void getParentNoParent(){
+    public void listNodesOneNode(){
         addOneNode();
-        mapClass.getParent(nodes_a);
+        graphSet.listNodes();
     }
     @Test
-    public void getParentOneParent(){
-        addEdgeCorrect();
-        mapClass.getParent(nodes_b);
+    public void listNodesEmptyGraph(){
+        graphSet.listNodes();
     }
     @Test
-    public void getParentTwoParents(){
-        addTwoEdges();
-        mapClass.getParent(nodes_a);
+    public void listNodesTwoNodes(){
+        addTwoNodes();
+        graphSet.listNodes();
     }
     @Test
-    public void getParentEmptyGraph(){
-        mapClass.getParent(nodes_a);
+    public void listNodesNullNode(){
+        addNullNode();
+        graphSet.listNodes();
     }
 }
+
