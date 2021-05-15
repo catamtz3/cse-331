@@ -1,0 +1,3 @@
+LoadGraph twoName twoNames.csv
+
+FindPath twoName CAT RAT

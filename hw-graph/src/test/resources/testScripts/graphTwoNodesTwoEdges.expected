@@ -14,6 +14,6 @@ added edge ba from b to a in twoEdges
 # Get the nodes of the graph
 twoEdges contains: a b
 
-# Get the edges of the graph
+# Get the children of the graph
 the children of a in twoEdges are: b(ab)
 the children of b in twoEdges are: a(ba)

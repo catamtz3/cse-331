@@ -12,4 +12,4 @@ added edge ab from a to b in twoNodes
 twoNodes contains: a b
 
 # Get the children of the graph
-the children of n1 in graph1 are: a[ab]]>
+the children of n1 in graph1 are: b(ab)>

@@ -47,6 +47,14 @@ public class Nodes<initial, secondary, edgeLabel> {
         this.l = edgeLabel;
     }
 
+    public String getL() {
+        return l.toString();
+    }
+
+    public String getB(){
+        return b.toString();
+    }
+
     public String toString(){
         String result = l.toString();
         return result;

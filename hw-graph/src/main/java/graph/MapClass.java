@@ -119,11 +119,18 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public String getChildren(initial a) {
         if (a != null && graphSet.containsKey(a)) {
-            String getEdge = graphSet.get(a).toString();
-            checkRep();
-            return getEdge;
+            String result = "";
+            for(Nodes<initial, secondary, edgeLabel> b : graphSet.get(a)){
+                result += b.getEdge() + " ";
+            }
+            return result.trim();
         }
         return null;
+    }
+
+    public Set<Nodes<initial, secondary, edgeLabel>> getEdges(initial a){
+        Set<Nodes<initial, secondary, edgeLabel>> b = new HashSet<Nodes<initial, secondary, edgeLabel>>(graphSet.get(a));
+        return b;
     }
 
     /**
@@ -132,10 +139,12 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public String listNodes(){
         String result =  "";
-        for (Map.Entry<initial, Set<Nodes<initial, secondary, edgeLabel>>> entry : graphSet.entrySet()) {
-            result += entry.getKey() + " ";
+        if (graphSet.size() > 0) {
+            for (Map.Entry<initial, Set<Nodes<initial, secondary, edgeLabel>>> entry : graphSet.entrySet()) {
+                result += entry.getKey() + " ";
+            }
         }
-        return result;
+        return result.trim();
     }
 
     /**

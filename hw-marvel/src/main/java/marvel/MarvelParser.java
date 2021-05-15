@@ -11,12 +11,13 @@
 
 package marvel;
 
-import java.io.*;
+import graph.MapClass;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Parser utility to load the Marvel Comics dataset.
@@ -28,17 +29,24 @@ public class MarvelParser {
      * comic book the character appeared in, separated by a tab character
      *
      * @param filename the file that will be read
+     * @param readFile
+     * @param allNames
      * @throws IOException if an error occurs while reading the file
      * @spec.requires filename is a valid file in the resources/data folder.
      */
     // TODO: Replace 'void' with the type you want the parser to produce
-    public static void parseData(String filename) throws IOException {
+    public static void parseData(String filename, Map<String, Set<String>> readFile, Set<String> allNames) throws IOException {
         List<String> lines = readLines(filename);
-
-        // TODO: Complete this method
-        // You'll need to:
-        //  - Split each line into its individual parts
-        //  - Collect the data into some convenient data structure(s) to return to the graph building code
+        for (String line : lines) {
+            String[] pieces = line.split(",");
+            String name = pieces[0];
+            String comic = pieces[1];
+            allNames.add(name);
+            if (readFile.containsKey(comic)) {
+                readFile.get(comic).add(name);
+            }
+            readFile.put(comic, new HashSet<>());
+        }
     }
 
     /**
