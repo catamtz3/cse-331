@@ -11,12 +11,14 @@ import java.util.*;
  */
 
 public class MarvelPaths {
+
     /**
      * Main method that takes in input from the user to find the shortest path between
      * two nodes until they want to quit.
      * @param args: ignore (call to make main method)
      * @throws IOException if there's an error while parsing the file
      */
+
     public static void main (String[] args) throws IOException {
         Scanner console = new Scanner(System.in);
         String user = userChoice(console);
@@ -61,6 +63,7 @@ public class MarvelPaths {
      * @spec.requires that the file exists
      * @spec.effects builds a graph
      */
+
     public static MapClass<String, String, String> loadGraph(String fileName) throws IOException {
         MapClass<String, String, String> marvelMap = new MapClass<String,String,String>();
         Map<String, List<String>> readFile = new HashMap<String, List<String>>();
@@ -90,6 +93,7 @@ public class MarvelPaths {
      * @return i if user wants to find a path between two characters;
      *         else returns q for the user to quit.
      */
+
     public static String userChoice(Scanner console){
             System.out.print("This program takes in two characters names from the Marvel universe and determines" +
                     " if theres a link between them. Enter (i) to input character names, or (q) to quit the program. ");
@@ -137,6 +141,7 @@ public class MarvelPaths {
 // If the loop terminates, then no path exists from start to dest.
 // The implementation should indicate this to the client. Note that
 // BFS returns the path with the fewest number of edges.
+
     public static List<Nodes<String, String, String>> BFS(MapClass<String, String, String> marvelMap, String start, String end){
         if (marvelMap.contains(start) && marvelMap.contains(end) && start != null && end != null) {
             Queue<String> path = new LinkedList<>();
