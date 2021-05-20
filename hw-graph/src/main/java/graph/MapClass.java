@@ -32,7 +32,6 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public MapClass() {
         graphSet = new HashMap<>();
-        checkRep();
     }
 
     /**
@@ -52,7 +51,6 @@ public class MapClass<initial, secondary, edgeLabel> {
     public void addNode(initial a) {
         if (!graphSet.containsKey(a) && a != null) {
             graphSet.put(a, new LinkedList<>());
-            checkRep();
         }
     }
 
@@ -66,7 +64,6 @@ public class MapClass<initial, secondary, edgeLabel> {
     public boolean removeNode(initial a) {
         if (a!= null && graphSet.containsKey(a)) {
             graphSet.remove(a, graphSet.get(a));
-            checkRep();
             return true;
         }
         return false;
@@ -89,7 +86,6 @@ public class MapClass<initial, secondary, edgeLabel> {
             Nodes<initial, secondary, edgeLabel> edge = new Nodes<>(a, b, labels);
             if (!getEdge.contains(edge)){
                 graphSet.get(a).add(edge);
-                checkRep();
                 return true;
             }
         }
@@ -105,7 +101,6 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public boolean contains(initial a){
         if (a != null) {
-            checkRep();
             return graphSet.containsKey(a);
         }
         return false;
@@ -158,13 +153,13 @@ public class MapClass<initial, secondary, edgeLabel> {
     }
 
     // ensures that the rep invariant hasn't been exposed
-    private void checkRep(){
-        assert this.graphSet != null;
-        Set<initial> initialNodes = graphSet.keySet();
-        for (initial j : initialNodes) {
-            if (j == null) {
-                throw new IllegalArgumentException();
-            }
-        }
-    }
+//    private void checkRep(){
+//        assert this.graphSet != null;
+//        Set<initial> initialNodes = graphSet.keySet();
+//        for (initial j : initialNodes) {
+//            if (j == null) {
+//                throw new IllegalArgumentException();
+//            }
+//        }
+//    }
 }
