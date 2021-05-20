@@ -14,7 +14,6 @@ package marvel.scriptTestRunner;
 import graph.MapClass;
 import graph.Nodes;
 import marvel.MarvelPaths;
-
 import java.io.*;
 import java.util.*;
 
