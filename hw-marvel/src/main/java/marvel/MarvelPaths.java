@@ -20,16 +20,17 @@ public class MarvelPaths {
     public static void main (String[] args) throws IOException {
         Scanner console = new Scanner(System.in);
         String user = userChoice(console);
-        System.out.print("Please input a file to parse through: ");
-        String fileName = console.nextLine();
-        MapClass<String, String, String> marvelMap = loadGraph(fileName);
         while (!user.equals("q")){
+            System.out.print("Please input a file to parse through: ");
+            String fileName = console.nextLine();
+            MapClass<String, String, String> marvelMap = loadGraph(fileName);
             System.out.print("Please enter the first characters name: ");
             String charOne = console.nextLine();
             System.out.print("Please enter the second characters name: ");
             String charTwo = console.nextLine();
-            String result = "Path from " + charOne + " to " + charTwo + ": ";
-            Set<Nodes<String, String, String>> ab = BFS(marvelMap, charOne, charTwo);
+            String result = "Path from " + charOne + "to " + charTwo + ": ";
+            List<Nodes<String, String, String>> ab = BFS(marvelMap, charOne, charTwo);
+            System.out.print(ab);
             if (marvelMap.contains(charOne) && marvelMap.contains(charTwo)){
                 if (ab!= null) {
                     for (Nodes<String, String, String> edge : ab) {
@@ -46,6 +47,7 @@ public class MarvelPaths {
                 charTwo = console.nextLine();
             }
             System.out.println(result);
+            user = userChoice(console);
         }
         System.out.print("Goodbye! Stay safe (especially in the spider verse) :P");
         console.close();
@@ -60,30 +62,22 @@ public class MarvelPaths {
      * @spec.effects builds a graph
      */
     public static MapClass<String, String, String> loadGraph(String fileName) throws IOException {
-        MapClass<String, String, String> marvelMap = new MapClass<>();
-        Map<String, Set<String>> readFile = new HashMap<>();
-        Set<String> allNames = new HashSet<>();
+        MapClass<String, String, String> marvelMap = new MapClass<String,String,String>();
+        Map<String, List<String>> readFile = new HashMap<String, List<String>>();
+        List<String> allNames = new LinkedList<>();
         MarvelParser.parseData(fileName, readFile, allNames);
         for (String character : allNames){
             marvelMap.addNode(character);
         }
         for (String label : readFile.keySet()){
-            Set<String> character = readFile.get(label);
-            for (String i : character){
-                for (String j : character){
-                    if (!(i.equals(j))) {
-                        marvelMap.addEdge(i, j, label);
-                        marvelMap.addEdge(j, i, label);
+            List<String> character = readFile.get(label);
+            for (String a : character) {
+                for (String j : character) {
+                    String initial = a;
+                    String secondary = j;
+                    if (!(initial.equals(secondary))) {
+                        marvelMap.addEdge(initial, secondary, label);
                     }
-                }
-            }
-            String[] charArray = character.toArray(new String[character.size()]);
-            for (int i = 0; i < charArray.length; i++){
-                for (int j = 1; j < charArray.length; i++){
-                    String initial = charArray[i];
-                    String secondary = charArray[j];
-                    marvelMap.addEdge(initial, secondary, label);
-                    marvelMap.addEdge(secondary, initial, label);
                 }
             }
         }
@@ -143,41 +137,38 @@ public class MarvelPaths {
 // If the loop terminates, then no path exists from start to dest.
 // The implementation should indicate this to the client. Note that
 // BFS returns the path with the fewest number of edges.
-    public static Set<Nodes<String, String, String>> BFS(MapClass<String, String, String> marvelMap, String start, String end){
-        if (marvelMap.contains(start) && marvelMap.contains(end) && marvelMap != null
-            && start != null && end != null) {
+    public static List<Nodes<String, String, String>> BFS(MapClass<String, String, String> marvelMap, String start, String end){
+        if (marvelMap.contains(start) && marvelMap.contains(end) && start != null && end != null) {
             Queue<String> path = new LinkedList<>();
-            Map<String, Set<Nodes<String, String, String>>> visited = new HashMap<>();
+            Map<String, List<Nodes<String, String, String>>> visited = new HashMap<>();
             path.add(start);
-            visited.put(start, new HashSet<>());
+            visited.put(start, new ArrayList<Nodes<String, String, String>>());
             while (!path.isEmpty()) {
                 String target = path.remove();
                 if (target.equals(end)) {
                     return visited.get(target);
                 }
-            }
-            List<Nodes<String, String, String>> order = new ArrayList<>(marvelMap.getEdges(start));
-            Comparator<Nodes> compareOrder = new Comparator<Nodes>() {
-                @Override
-                public int compare(Nodes o1, Nodes o2) {
-                    if (!o1.getB().equals(o2.getB())) {
-                        o1.getB().compareTo(o2.getB());
+                List<Nodes<String, String, String>> order = new ArrayList<>(marvelMap.getEdges(target));
+                Comparator<Nodes> compareOrder = new Comparator<Nodes>() {
+                    @Override
+                    public int compare(Nodes o1, Nodes o2) {
+                        if (!o1.getB().equals(o2.getB())) {
+                            o1.getB().compareTo(o2.getB());
+                        }
+                        if (!(o1.getL().equals(o2.getL()))) {
+                            return o1.getL().compareTo(o2.getL());
+                        }
+                        return 0;
                     }
-                    if (!(o1.getL().equals(o2.getL()))) {
-                        return o1.getL().compareTo(o2.getL());
+                };
+                for (Nodes<String, String, String> comp : order) {
+                    String pop = comp.getB();
+                    if (!(visited.containsKey(pop))) {
+                        path.add(pop);
+                        List<Nodes<String, String, String>> storeNew = new ArrayList<>(visited.get(target));
+                        storeNew.add(comp);
+                        visited.put(pop, storeNew);
                     }
-                    return 0;
-                }
-
-            };
-                for (Nodes<String,String,String> comp : order){
-                String pop = comp.getB();
-                if(!(visited.containsKey(pop))){
-                    path.add(pop);
-                    Set<Nodes<String, String, String>> oldPath = visited.get(pop);
-                    Set<Nodes<String, String, String>> newPath = new TreeSet<>(oldPath);
-                    newPath.add(comp);
-                    visited.put(end, newPath);
                 }
             }
             return visited.get(start);

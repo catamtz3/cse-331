@@ -1,3 +1,2 @@
 LoadGraph empty empty.csv
 
-FindPath empty n1 n2

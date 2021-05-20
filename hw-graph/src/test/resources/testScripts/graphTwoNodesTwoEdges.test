@@ -7,6 +7,8 @@ AddNode twoEdges b
 
 #Add one edge between nodes a and b
 AddEdge twoEdges a b ab
+
+#Add one edge between nodes b and a
 AddEdge twoEdges b a ba
 
 # Get the nodes of the graph

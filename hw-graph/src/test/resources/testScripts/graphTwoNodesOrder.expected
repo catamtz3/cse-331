@@ -5,6 +5,5 @@ created graph sortedGraph
 added node b to sortedGraph
 added node a to sortedGraph
 
-
 # Get the nodes of the graph
 sortedGraph contains: a b

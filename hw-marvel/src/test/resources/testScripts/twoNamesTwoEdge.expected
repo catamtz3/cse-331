@@ -2,3 +2,5 @@ loaded graph twoName
 
 path from CAT to RAT:
 CAT to RAT via A2
+
+the children of CAT in twoName are: RAT(A2)

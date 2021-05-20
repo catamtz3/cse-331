@@ -19,7 +19,10 @@ public class CampusMap implements ModelAPI {
 
     @Override
     public boolean shortNameExists(String shortName) {
-        // TODO: Implement this method exactly as it is specified in ModelAPI
+//        if (CampusMap.contains(shortName)){
+//            return true;
+//        }
+//        return false;
         throw new RuntimeException("Not Implemented Yet");
     }
 

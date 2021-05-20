@@ -177,8 +177,13 @@ public class MarvelTestDriver {
 
     private void listChildren(String graphName, String parentName) {
         MapClass<String, String, String> a = newGraph.get(graphName);
-        output.println("the children of " + parentName + " in " + graphName + " are: "
-                + a.getChildren(parentName));
+        String result = "the children of " + parentName + " in " + graphName + " are: ";
+        List<String> sort = new ArrayList<String>(a.getChildren(parentName));
+        Collections.sort(sort);
+        for (String b : sort){
+            result += b.toString() + " ";
+        }
+        output.println(result.trim());
     }
 
     private void findPath(List<String> arguments) {
@@ -193,17 +198,27 @@ public class MarvelTestDriver {
 
     private void findPath(String graphName, String parentName, String childName) {
         MapClass<String, String, String> a = newGraph.get(graphName);
+        if ((!a.contains(parentName)) && (!a.contains(childName))) {
+            output.println("unknown: " + parentName);
+            output.println("unknown: " + childName);
+        } else if ((!a.contains(childName))) {
+            output.println("unknown: " + childName);
+        } else if (!(a.contains(parentName))) {
+            output.println("unknown: " + parentName);
+        }
         if (a.contains(parentName) && a.contains(childName)) {
-            Set<Nodes<String, String, String>> ab = MarvelPaths.BFS(a, parentName, childName);
-            String result = "path from " + parentName + "to " + childName + " ";
-            if (ab != null) {
+            List<Nodes<String, String, String>> ab = MarvelPaths.BFS(a, parentName, childName);
+            String result = "path from " + parentName + " to " + childName + ":";
+            if (parentName.equals(childName)){
+                result += "";
+            } else if (ab.isEmpty()) {
+                result += "\n" + "no path found";
+            } else {
                 for (Nodes<String, String, String> edge : ab) {
                     result += "\n" + parentName + " to " + edge.getB() +
                             " via " + edge.getL();
                     parentName = edge.getB();
                 }
-            } else {
-                result += "no path found.";
             }
             output.println(result);
         }

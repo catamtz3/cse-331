@@ -16,7 +16,7 @@ public class MapClass<initial, secondary, edgeLabel> {
     // graph with nodes [a, b, c, ...]
     // graph with nodes and edges [a[ab ac] b[ba] ...]
 
-    private final Map<initial, Set<Nodes<initial, secondary, edgeLabel>>> graphSet;
+    private final Map<initial, List<Nodes<initial, secondary, edgeLabel>>> graphSet;
 
     /**
      *
@@ -51,7 +51,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public void addNode(initial a) {
         if (!graphSet.containsKey(a) && a != null) {
-            graphSet.put(a, new HashSet<>());
+            graphSet.put(a, new LinkedList<>());
             checkRep();
         }
     }
@@ -85,7 +85,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      */
     public boolean addEdge(initial a, secondary b, edgeLabel labels){
         if (a != null && b != null && graphSet.containsKey(a) && graphSet.containsKey(b)){
-            HashSet<Nodes<initial, secondary, edgeLabel>> getEdge = new HashSet<>(graphSet.get(a));
+            LinkedList<Nodes<initial, secondary, edgeLabel>> getEdge = new LinkedList<>(graphSet.get(a));
             Nodes<initial, secondary, edgeLabel> edge = new Nodes<>(a, b, labels);
             if (!getEdge.contains(edge)){
                 graphSet.get(a).add(edge);
@@ -117,19 +117,19 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @spec.requires node a exists
      * @return children nodes of the specified node
      */
-    public String getChildren(initial a) {
+    public List<String> getChildren(initial a) {
         if (a != null && graphSet.containsKey(a)) {
-            String result = "";
+            List<String> result = new LinkedList<>();
             for(Nodes<initial, secondary, edgeLabel> b : graphSet.get(a)){
-                result += b.getEdge() + " ";
+                result.add(b.getEdge());
             }
-            return result.trim();
+            return result;
         }
         return null;
     }
 
-    public Set<Nodes<initial, secondary, edgeLabel>> getEdges(initial a){
-        Set<Nodes<initial, secondary, edgeLabel>> b = new HashSet<Nodes<initial, secondary, edgeLabel>>(graphSet.get(a));
+    public List<Nodes<initial, secondary, edgeLabel>> getEdges(initial a){
+        List<Nodes<initial, secondary, edgeLabel>> b = new LinkedList<Nodes<initial, secondary, edgeLabel>>(graphSet.get(a));
         return b;
     }
 
@@ -137,21 +137,15 @@ public class MapClass<initial, secondary, edgeLabel> {
      * returns a set of all the nodes in the graph
      * @return the nodes in the graph
      */
-    public String listNodes(){
-        String result =  "";
-        if (graphSet.size() > 0) {
-            for (Map.Entry<initial, Set<Nodes<initial, secondary, edgeLabel>>> entry : graphSet.entrySet()) {
-                result += entry.getKey() + " ";
-            }
-        }
-        return result.trim();
+    public Set<initial> listNodes(){
+        return Collections.unmodifiableSet(graphSet.keySet());
     }
 
     /**
      * returns a set of the elements contained in the graph
      * @return set of elements in the graph
      */
-    public Set<Map.Entry<initial, Set<Nodes<initial, secondary, edgeLabel>>>> entrySet(){
+    public Set<Map.Entry<initial, List<Nodes<initial, secondary, edgeLabel>>>> entrySet(){
         return graphSet.entrySet();
     }
 

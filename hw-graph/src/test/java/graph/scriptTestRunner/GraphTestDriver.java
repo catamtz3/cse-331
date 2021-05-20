@@ -170,7 +170,13 @@ public class GraphTestDriver {
 
     private void listNodes(String graphName) {
         MapClass<String, String, String> a = newGraph.get(graphName);
-        output.println(graphName + " contains: " + a.listNodes());
+        String result = graphName + " contains:";
+        List<String> sorted = new ArrayList<String>(a.listNodes());
+        Collections.sort(sorted);
+        for (String b: sorted) {
+            result += " " + b;
+        }
+        output.println(result);
     }
 
     private void listChildren(List<String> arguments) {
@@ -185,8 +191,13 @@ public class GraphTestDriver {
 
     private void listChildren(String graphName, String parentName) {
         MapClass<String, String, String> a = newGraph.get(graphName);
-        output.println("the children of " + parentName + " in " + graphName + " are: "
-                + a.getChildren(parentName));
+        String result = "the children of " + parentName + " in " + graphName + " are: ";
+        List<String> sort = new ArrayList<String>(a.getChildren(parentName));
+        Collections.sort(sort);
+        for (String b : sort) {
+            result += b.toString() + " ";
+        }
+        output.println(result.trim());
     }
 
     /**
