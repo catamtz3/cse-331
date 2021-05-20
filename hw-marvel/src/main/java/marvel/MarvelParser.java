@@ -23,7 +23,6 @@ import java.util.*;
  * Parser utility to load the Marvel Comics dataset.
  */
 public class MarvelParser {
-
     /**
      * Reads the Marvel Universe dataset. Each line of the input file contains a character name and a
      * comic book the character appeared in, separated by a tab character
@@ -34,7 +33,6 @@ public class MarvelParser {
      * @throws IOException if an error occurs while reading the file
      * @spec.requires filename is a valid file in the resources/data folder.
      */
-
     // TODO: Replace 'void' with the type you want the parser to produce
     public static void parseData(String filename, Map<String, List<String>> readFile, List<String> allNames) throws IOException {
         List<String> lines = readLines(filename);

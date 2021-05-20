@@ -10,14 +10,12 @@ import java.util.*;
  */
 
 public class MarvelPaths {
-
     /**
      * Main method that takes in input from the user to find the shortest path between
      * two nodes until they want to quit.
      * @param args: ignore (call to make main method)
      * @throws IOException if there's an error while parsing the file
      */
-
     public static void main (String[] args) throws IOException {
         Scanner console = new Scanner(System.in);
         String user = userChoice(console);

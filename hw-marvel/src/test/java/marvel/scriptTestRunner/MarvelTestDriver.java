@@ -16,7 +16,6 @@ import graph.Nodes;
 import marvel.MarvelPaths;
 import java.io.*;
 import java.util.*;
-
 /**
  * This class implements a testing driver which reads test scripts from
  * files for testing Graph, the Marvel parser, and your BFS algorithm.
