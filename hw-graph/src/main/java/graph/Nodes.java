@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.Comparator;
+
 /**
  * This class represents the edges between two nodes
  *
@@ -7,7 +9,7 @@ package graph;
  *  @spec.specfield nodes : strings  // The nodes in the graph
  *
  */
-public class Nodes<initial, secondary, edgeLabel> {
+public class Nodes<A, S, L> {
 
 //      Abstract function:
 //           Nodes are never null.
@@ -15,9 +17,9 @@ public class Nodes<initial, secondary, edgeLabel> {
 //           Node in graph = a
 //           Node with an edge : a (parent node) b(child node) l (label of the edge)
 
-    public initial a;
-    public secondary b;
-    public edgeLabel l;
+    public A a;
+    public S b;
+    public L l;
 
      /**
      * @spec.requires nodes != null
@@ -30,7 +32,7 @@ public class Nodes<initial, secondary, edgeLabel> {
      * @param initial will create a single node
      * @spec.effects creates a node in the graph
      */
-    public Nodes (initial initial){
+    public Nodes (A initial){
         this.a = initial;
     }
 
@@ -41,18 +43,18 @@ public class Nodes<initial, secondary, edgeLabel> {
      * @param edgeLabel will link the two nodes and create the edge connecting them
      * @spec.effects creates an edge in the graph between two nodes
      */
-    public Nodes (initial initial, secondary secondary, edgeLabel edgeLabel){
+    public Nodes (A initial, S secondary, L edgeLabel){
         this.a = initial;
         this.b = secondary;
         this.l = edgeLabel;
     }
 
-    public String getL() {
-        return l.toString();
+    public L getL() {
+        return l;
     }
 
-    public String getB(){
-        return b.toString();
+    public S getB(){
+        return b;
     }
 
     public String toString(){
@@ -64,4 +66,5 @@ public class Nodes<initial, secondary, edgeLabel> {
         String r = b.toString() + "(" + l.toString() + ")";
         return r;
     }
+
 }

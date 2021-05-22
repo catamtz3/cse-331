@@ -1,0 +1,9 @@
+CreateGraph oneNode
+
+AddNode oneNode a
+
+AddEdge oneNode a a 1.0
+
+ListNodes oneNode
+
+FindPath oneNode a b

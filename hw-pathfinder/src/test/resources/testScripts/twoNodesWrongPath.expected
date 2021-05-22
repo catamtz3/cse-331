@@ -1,0 +1,12 @@
+created graph twoNodes
+
+added node a to twoNodes
+added node b to twoNodes
+
+added edge 10.0 from a to b to twoNodes
+
+twoNodes contains: a, b
+
+the children of a in twoNodes are: b(10.0)
+
+unknown node: c

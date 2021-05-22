@@ -5,7 +5,7 @@ import java.util.*;
  * This class represents a mutable graph
  */
 
-public class MapClass<initial, secondary, edgeLabel> {
+public class MapClass<A, S, L> {
     // Rep Invariant:
     // nodes != null, edges != null, graph != null
     // if a node is included in an edge, the node must exist
@@ -15,7 +15,7 @@ public class MapClass<initial, secondary, edgeLabel> {
     // graph with nodes [a, b, c, ...]
     // graph with nodes and edges [a[ab ac] b[ba] ...]
 
-    private final Map<initial, List<Nodes<initial, secondary, edgeLabel>>> graphSet;
+    private final Map<A, List<Nodes<A, S, L>>> graphSet;
 
     /**
      *
@@ -47,7 +47,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @spec.effects adds node to the existing graph
      * @spec.modifies this
      */
-    public void addNode(initial a) {
+    public void addNode(A a) {
         if (!graphSet.containsKey(a) && a != null) {
             graphSet.put(a, new LinkedList<>());
         }
@@ -60,7 +60,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @spec.modifies this
      * @return true if node was successfully removed
      */
-    public boolean removeNode(initial a) {
+    public boolean removeNode(A a) {
         if (a!= null && graphSet.containsKey(a)) {
             graphSet.remove(a, graphSet.get(a));
             return true;
@@ -79,10 +79,10 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @return true if edge is added
      *
      */
-    public boolean addEdge(initial a, secondary b, edgeLabel labels){
+    public boolean addEdge(A a, S b, L labels){
         if (a != null && b != null && graphSet.containsKey(a) && graphSet.containsKey(b)){
-            LinkedList<Nodes<initial, secondary, edgeLabel>> getEdge = new LinkedList<>(graphSet.get(a));
-            Nodes<initial, secondary, edgeLabel> edge = new Nodes<>(a, b, labels);
+            LinkedList<Nodes<A, S, L>> getEdge = new LinkedList<>(graphSet.get(a));
+            Nodes<A, S, L> edge = new Nodes<A, S, L>(a, b, labels);
             if (!getEdge.contains(edge)){
                 graphSet.get(a).add(edge);
                 return true;
@@ -98,7 +98,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @return true if node exists in the map
      *
      */
-    public boolean contains(initial a){
+    public boolean contains(A a){
         if (a != null) {
             return graphSet.containsKey(a);
         }
@@ -111,10 +111,10 @@ public class MapClass<initial, secondary, edgeLabel> {
      * @spec.requires node a exists
      * @return children nodes of the specified node
      */
-    public List<String> getChildren(initial a) {
+    public List<String> getChildren(A a) {
         if (a != null && graphSet.containsKey(a)) {
             List<String> result = new LinkedList<>();
-            for(Nodes<initial, secondary, edgeLabel> b : graphSet.get(a)){
+            for(Nodes<A, S, L> b : graphSet.get(a)){
                 result.add(b.getEdge());
             }
             return result;
@@ -122,8 +122,8 @@ public class MapClass<initial, secondary, edgeLabel> {
         return null;
     }
 
-    public List<Nodes<initial, secondary, edgeLabel>> getEdges(initial a){
-        List<Nodes<initial, secondary, edgeLabel>> b = new LinkedList<Nodes<initial, secondary, edgeLabel>>(graphSet.get(a));
+    public List<Nodes<A, S, L>> getEdges(A a){
+        List<Nodes<A, S, L>> b = new LinkedList<Nodes<A, S, L>>(graphSet.get(a));
         return b;
     }
 
@@ -131,7 +131,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      * returns a set of all the nodes in the graph
      * @return the nodes in the graph
      */
-    public Set<initial> listNodes(){
+    public Set<A> listNodes(){
         return Collections.unmodifiableSet(graphSet.keySet());
     }
 
@@ -139,7 +139,7 @@ public class MapClass<initial, secondary, edgeLabel> {
      * returns a set of the elements contained in the graph
      * @return set of elements in the graph
      */
-    public Set<Map.Entry<initial, List<Nodes<initial, secondary, edgeLabel>>>> entrySet(){
+    public Set<Map.Entry<A, List<Nodes<A, S, L>>>> entrySet(){
         return graphSet.entrySet();
     }
 

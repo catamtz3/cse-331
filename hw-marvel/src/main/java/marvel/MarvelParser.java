@@ -34,7 +34,7 @@ public class MarvelParser {
      * @spec.requires filename is a valid file in the resources/data folder.
      */
     // TODO: Replace 'void' with the type you want the parser to produce
-    public static void parseData(String filename, Map<String, List<String>> readFile, List<String> allNames) throws IOException {
+    public static void parseData(String filename, Map<String, HashMap<String, Integer>> readFile, List<String> allNames) throws IOException {
         List<String> lines = readLines(filename);
         for (String line : lines) {
             String[] pieces = line.split(",", 2);

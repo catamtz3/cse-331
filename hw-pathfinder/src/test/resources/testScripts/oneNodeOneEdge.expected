@@ -1,0 +1,9 @@
+created graph oneNode
+
+added node a
+
+added edge 1.0 from a to a in oneNode
+
+oneNode contains: a
+
+unknown node b

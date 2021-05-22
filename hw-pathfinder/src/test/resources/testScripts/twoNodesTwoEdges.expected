@@ -1,0 +1,16 @@
+created graph twoNodes
+
+added node a to twoNodes
+added node b to twoNodes
+
+added edge 10.0 from a to b to twoNodes
+added edge 5.0 from b to a to twoNodes
+
+twoNodes contains: a, b
+
+the children of a in twoNodes are: b(10.0)
+the children of b in twoNodes are: a(5.0)
+
+path from A to B:
+a to b with weight 10.0
+total cost: 10.0
