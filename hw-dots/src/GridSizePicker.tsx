@@ -18,18 +18,22 @@ interface GridSizePickerProps {
     onChange(newSize: number): void;  // called when a new size is picked
 }
 
-class GridSizePicker extends Component<GridSizePickerProps> {
+interface GridSizePickerDisplay {
+    displayValue: string;
+}
+
+class GridSizePicker extends Component<GridSizePickerProps, GridSizePickerDisplay> {
 
     onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // Every event handler with JS can optionally take a single parameter that
-        // is an "event" object - contains information about an event. For mouse clicks,
-        // it'll tell you thinks like what x/y coordinates the click was at. For text
-        // box updates, it'll tell you the new contents of the text box, like we're using
-        // below.
-        //
-        // TODO - Not currently doing any validation or error handling. Should probably add some...
         const newSize: number = parseInt(event.target.value);
-        this.props.onChange(newSize); // Tell our parent component about the new size.
+        this.setState({
+            displayValue: event.target.value
+        })
+        if (newSize < 0 || newSize > 100){
+            console.log("Incorrect input. Please input a number between 1 and 100.");
+        } else {
+            this.props.onChange(newSize); // Tell our parent component about the new size.
+        }
     };
 
     render() {

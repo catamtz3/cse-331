@@ -15,6 +15,7 @@ interface GridProps {
     size: number;    // size of the grid to display
     width: number;   // width of the canvas on which to draw
     height: number;  // height of the canvas on which to draw
+    edges: string[];
 }
 
 interface GridState {
@@ -86,6 +87,33 @@ class Grid extends Component<GridProps, GridState> {
         for (let coordinate of coordinates) {
             this.drawCircle(ctx, coordinate);
         }
+        // Draw the edges
+        if (this.props.edges.toString() !== "" ){
+            const getEdge : string[] = this.props.edges;
+            for (let i of getEdge){
+                let cut = i.split(" ");
+                if (cut.length !== 3){
+                    alert("Please ensure the format is x1, y1 x2, y2 color");
+                } else {
+                    let x1: number = parseInt(cut[0].split(",")[0]);
+                    let y1: number = parseInt(cut[0].split(",")[1]);
+                    let x2: number = parseInt(cut[1].split(",")[0]);
+                    let y2: number = parseInt(cut[1].split(",")[1]);
+                    if (x1 > this.props.size || y1 > this.props.size || x2 > this.props.size || y2 > this.props.size) {
+                        alert("Outside of grid boundaries.")
+                    } else {
+                        let start: [number, number] = [this.props.width / (this.props.size + 1) * (x1 + 1), this.props.width / (this.props.size + 1) * (y1 + 1)];
+                        let end: [number, number] = [this.props.width / (this.props.size + 1) * (x2 + 1), this.props.width / (this.props.size + 1) * (y2 + 1)];
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = cut[2];
+                        ctx.beginPath();
+                        ctx.moveTo(start[0], start[1]);
+                        ctx.lineTo(end[0], end[1]);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
     };
 
     /**
@@ -93,13 +121,15 @@ class Grid extends Component<GridProps, GridState> {
      * be drawn.
      */
     getCoordinates = (): [number, number][] => {
-        // A hardcoded 4x4 grid. Probably not going to work when we change the grid size...
-        return [
-            [100, 100], [100, 200], [100, 300], [100, 400],
-            [200, 100], [200, 200], [200, 300], [200, 400],
-            [300, 100], [300, 200], [300, 300], [300, 400],
-            [400, 100], [400, 200], [400, 300], [400, 400]
-        ];
+        let graph: [number, number][] = [];
+        const w : number = this.props.width;
+        const s : number = this.props.size;
+        for(let i = 0; i < s; i++){
+            for (let j = 0; j < s; j++){
+                graph.push([(w/(s+1)) * (i+1), (w/(s+1)) *(j+1)]);
+            }
+        }
+        return graph;
     };
 
     drawCircle = (ctx: CanvasRenderingContext2D, coordinate: [number, number]) => {
@@ -116,7 +146,7 @@ class Grid extends Component<GridProps, GridState> {
         return (
             <div id="grid">
                 <canvas ref={this.canvasReference} width={this.props.width} height={this.props.height}/>
-                <p>Current Grid Size: 4</p>
+                <p>Current Grid Size: {this.props.size}</p>
             </div>
         );
     }

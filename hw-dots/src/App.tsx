@@ -19,6 +19,7 @@ import "./App.css";
 
 interface AppState {
     gridSize: number;  // size of the grid to display
+    edges : string;
 }
 
 class App extends Component<{}, AppState> { // <- {} means no props.
@@ -27,12 +28,24 @@ class App extends Component<{}, AppState> { // <- {} means no props.
         super(props);
         this.state = {
             gridSize: 4,
+            edges : "",
         };
     }
 
     updateGridSize = (newSize: number) => {
+        if(isNaN(newSize)){
+            this.setState({
+                gridSize: 0
+            });
+        };
         this.setState({
             gridSize: newSize
+        });
+    };
+
+    drawEdges = (event : string) => {
+        this.setState({
+            edges : event,
         });
     };
 
@@ -42,13 +55,11 @@ class App extends Component<{}, AppState> { // <- {} means no props.
             <div>
                 <p id="app-title">Connect the Dots!</p>
                 <GridSizePicker value={this.state.gridSize.toString()} onChange={this.updateGridSize}/>
-                <Grid size={this.state.gridSize} width={canvas_size} height={canvas_size}/>
-                <EdgeList onChange={(value) => {console.log("EdgeList onChange", value)}}/>
+                <Grid size={this.state.gridSize} width={canvas_size} height={canvas_size} edges={this.state.edges.split("\n")}/>
+                <EdgeList onChange={this.drawEdges}/>
             </div>
-
         );
     }
-
 }
 
 export default App;
