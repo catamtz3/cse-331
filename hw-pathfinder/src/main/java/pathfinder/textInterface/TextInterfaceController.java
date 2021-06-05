@@ -40,7 +40,7 @@ public class TextInterfaceController implements InputHandler {
     /**
      * Creates a new TextInterfaceController with the provided model and view
      * classes to manage.
-     *  @param model A model to use for computation and data.
+     * @param model A model to use for computation and data.
      * @param view  A view to use to display data to the user.
      */
     public TextInterfaceController(CampusMap model, TextInterfaceView view) {

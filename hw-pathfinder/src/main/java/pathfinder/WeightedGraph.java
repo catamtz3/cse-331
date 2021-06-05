@@ -8,24 +8,14 @@ import java.util.*;
 public class WeightedGraph {
     public static <A> Path<A> dijkstraAlgorithm(MapClass<A, A, Double> graphParse, A start, A end){
         if (start != null && end != null && graphParse.contains(end) && graphParse.contains(start)){
-            Queue<ArrayList<Nodes<A, A, Double>>> path = new PriorityQueue<>((o1, o2) -> {
-                Nodes<A, A, Double> path1 = o1.get(o1.size() - 1);
-                Nodes<A, A, Double> path2 = o2.get(o2.size() - 1);
-                if (path1 - path2 > 0) {
-                    return 1;
-                } else if (path1 - path2 < 0) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            });
+            Comparator<Path<A>> pathComparator = Comparator.comparingDouble(Path::getCost);
+            Queue<Path<A>> path = new PriorityQueue<Path<A>>(pathComparator);
+            Path<A> beginning = new Path<>(start);
             Set<A> done = new HashSet<>();
-            List<Nodes<A, A, Double>> front = new ArrayList<>();
-            front.add(new Nodes(start, end, 0.0));
-            path.add(new ArrayList<>(front));
+            path.add(beginning);
             while (!path.isEmpty()){
                 Path<A> mini = path.remove();
-                A miniEnd =  mini.get(mini.size() - 1).getB();
+                A miniEnd =  mini.getEnd();
                 if(miniEnd.equals(end)){
                     return mini;
                 }
@@ -34,9 +24,8 @@ public class WeightedGraph {
                 }
                 for (Nodes<A, A, Double> i: graphParse.getEdges(miniEnd)){
                     if (!done.contains(i.getB())){
-                        List<Nodes<A, A, Double>> newPath = new ArrayList<>(mini);
-                        Double newCost = i.getL();
-                        newPath.add(new Nodes(i, i.getB(), newCost));
+                        Path<A> newPath = mini.extend(i.getB(), i.getL());
+                        path.add(newPath);
                     }
                 }
                 done.add(miniEnd);

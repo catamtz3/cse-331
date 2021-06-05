@@ -12,18 +12,42 @@
 package campuspaths;
 
 import campuspaths.utils.CORSFilter;
+import com.google.gson.Gson;
+import pathfinder.CampusMap;
+import pathfinder.datastructures.Path;
+import pathfinder.datastructures.Point;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+
+import java.util.Map;
 
 public class SparkServer {
-
     public static void main(String[] args) {
         CORSFilter corsFilter = new CORSFilter();
         corsFilter.apply();
-        // The above two lines help set up some settings that allow the
-        // React application to make requests to the Spark server, even though it
-        // comes from a different server.
-        // You should leave these two lines at the very beginning of main().
+        CampusMap newMap = new CampusMap();
 
-        // TODO: Create all the Spark Java routes you need here.
+        // listBuilding endpoint
+        Spark.get("/listBuilding", new Route() {
+            @Override
+            public Object handle(Request request, Response response){
+                Map<String, String> map = newMap.buildingNames();
+                Gson gson = new Gson();
+                return gson.toJson(map);
+            }
+        });
+        Spark.get("/campusPaths", new Route() {
+            @Override
+            public Object handle(Request request, Response response) {
+                String start = request.queryParams("start");
+                String end = request.queryParams("end");
+                Path<Point> path = newMap.findShortestPath(start, end);
+                Gson gson = new Gson();
+                return gson.toJson(path);
+            }
+        });
     }
 
 }

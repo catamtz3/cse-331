@@ -27,3 +27,24 @@ canvas {
     margin: 0 auto;
     display: block;
 }
+
+input {
+    margin: 5px;
+}
+
+#path-picker {
+    text-align: center;
+    margin: 5px;
+}
+
+
+#path-picker button {
+    margin: 2px 5px;
+}
+
+#app-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+}

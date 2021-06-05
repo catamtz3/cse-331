@@ -151,9 +151,9 @@ public class MarvelPaths {
                     return visited.get(target);
                 }
                 List<Nodes<String, String, String>> order = new ArrayList<>(marvelMap.getEdges(target));
-                Comparator<Nodes> compareOrder = new Comparator<Nodes>() {
+                Comparator<Nodes<String, String, String>> compareOrder = new Comparator<Nodes<String, String, String>>() {
                     @Override
-                    public int compare(Nodes o1, Nodes o2) {
+                    public int compare(Nodes<String, String, String> o1, Nodes<String, String, String> o2) {
                         if (!o1.getB().equals(o2.getB())) {
                             o1.getB().compareTo(o2.getB());
                         }

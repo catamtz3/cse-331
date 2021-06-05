@@ -193,9 +193,17 @@ public class GraphTestDriver {
     private void listChildren(String graphName, String parentName) {
         MapClass<String, String, String> a = newGraph.get(graphName);
         String result = "the children of " + parentName + " in " + graphName + " are: ";
-        List<String> sort = new ArrayList<String>(a.getChildren(parentName));
-        Collections.sort(sort);
-        for (String b : sort) {
+        List<Nodes<String, String, String>> sortLabels = new ArrayList<Nodes<String, String, String>>(a.getChildren(parentName));
+        Comparator<Nodes<String,String,String>> edgeComparator = (o1, o2) -> {
+            if (!o1.getL().equals(o2.getL())) {
+                return o1.getL().compareTo(o2.getL());
+            } else {
+                return o1.getB().compareTo(o2.getB());
+            }
+        };
+
+        sortLabels.sort(edgeComparator);
+        for (Nodes<String, String, String> b : sortLabels){
             result += b.toString() + " ";
         }
         output.println(result.trim());

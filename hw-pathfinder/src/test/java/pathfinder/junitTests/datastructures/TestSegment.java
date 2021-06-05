@@ -10,26 +10,26 @@ import static org.junit.Assert.assertNotEquals;
 
 public class TestSegment {
 
-    private static final double EPSILON = Math.pow(10.0D, -9.0D);
+    private final double EPSILON = Math.pow(10.0D, -9.0D);
 
-    private static Path.Segment makeSegment(Point start, Point end, Double cost) {
-        Path path = new Path(start);
+    private Path<Point>.Segment makeSegment(Point start, Point end, Double cost) {
+        Path<Point> path = new Path<>(start);
         path = path.extend(end, cost);
         return path.iterator().next();
     }
 
     @Test
     public void testMakeSegment() {
-        Path.Segment segment = makeSegment(new Point(0.0, 0.0), new Point(0.0, 19.0), 19.0D);
+        Path<Point>.Segment segment = makeSegment(new Point(0.0, 0.0), new Point(0.0, 19.0), 19.0D);
         assertEquals(new Point(0.0, 0.0), segment.getStart());
         assertEquals(new Point(0.0, 19.0), segment.getEnd());
         assertEquals(19.0D, segment.getCost(), EPSILON);
     }
 
-    private static Path.Segment seg1, seg2, seg3, seg4, seg5, seg6;
+    private  Path<Point>.Segment seg1, seg2, seg3, seg4, seg5, seg6;
 
     @BeforeClass
-    public static void initializeEqualityTestData() {
+    public void initializeEqualityTestData() {
         seg1 = makeSegment(new Point(0.0D, 0.0D), new Point(0.0D, 10.0D), 10.0D);
         seg2 = makeSegment(new Point(0.0D, 0.0D), new Point(0.0D, 10.000001D), 10.000001D);
         seg3 = makeSegment(new Point(0.0D, 0.0D), new Point(25.0D, 0.0D), 25.0D);

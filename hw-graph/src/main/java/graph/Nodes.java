@@ -67,4 +67,23 @@ public class Nodes<A, S, L> {
         return r;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Nodes<?, ?, ?>)) {
+            return false;
+        }
+        Nodes<?, ?, ?> le = (Nodes<?, ?, ?>) obj;
+        return this.b.equals(le.b) && this.l.equals(le.l);
+    }
+
+    /**
+     * Standard hashCode function.
+     *
+     * @return an int that all objects equal to this will also return
+     */
+    @Override
+    public int hashCode() {
+        return this.b.hashCode() * this.l.hashCode();
+    }
+
 }

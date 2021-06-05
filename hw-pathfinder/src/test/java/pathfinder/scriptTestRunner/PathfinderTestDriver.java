@@ -13,8 +13,8 @@ package pathfinder.scriptTestRunner;
 
 import graph.MapClass;
 import graph.Nodes;
-import marvel.MarvelPaths;
 import pathfinder.CampusMap;
+import pathfinder.WeightedGraph;
 import pathfinder.datastructures.Path;
 import pathfinder.datastructures.Point;
 
@@ -179,9 +179,17 @@ public class PathfinderTestDriver {
     private void listChildren(String graphName, String parentName) {
         MapClass<String, String, Double> a = newGraph.get(graphName);
         String result = "the children of " + parentName + " in " + graphName + " are: ";
-        List<Nodes<String, String, Double> sort = new ArrayList<Nodes<String, String, Double>(a.getChildren(parentName));
-        Collections.sort(sort);
-        for (Nodes<String, String, Double> b : sort){
+        List<Nodes<String, String, Double>> sortLabels = new ArrayList<Nodes<String, String, Double>>(a.getChildren(parentName));
+        Comparator<Nodes<String,String,Double>> edgeComparator = (o1, o2) -> {
+            if (!o1.getL().equals(o2.getL())) {
+                return o1.getL().compareTo(o2.getL());
+            } else {
+                return o1.getB().compareTo(o2.getB());
+            }
+        };
+
+        sortLabels.sort(edgeComparator);
+        for (Nodes<String, String, Double> b : sortLabels){
             result += b.toString() + " ";
         }
         output.println(result.trim());
@@ -209,12 +217,11 @@ public class PathfinderTestDriver {
         }
         if (a.contains(parentName) && a.contains(childName)) {
             String result = "path from " + parentName + " to " + childName + ":";
-            Path<Point> smallest = CampusMap.findShortestPath(parentName,childName);
-            for (Path<Point>.Segment b : smallest) {
+            Path<String> smallest = WeightedGraph.dijkstraAlgorithm(a, parentName, childName);
+            for (Path<String>.Segment b : smallest) {
                 result += "\n" + b.getStart() + " to " + b.getEnd() +" with weight " + b.getCost();
-
             }
-            output.println(result + "\n" + "total cost: " + smallest.getCost();
+            output.println(result + "\n" + "total cost: " + smallest.getCost());
         }
     }
 
@@ -233,8 +240,5 @@ public class PathfinderTestDriver {
         }
 
         public static final long serialVersionUID = 3495;
-    }
-}
-
     }
 }

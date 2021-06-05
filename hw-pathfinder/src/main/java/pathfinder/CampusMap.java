@@ -17,17 +17,15 @@ import pathfinder.datastructures.Point;
 import pathfinder.parser.CampusBuilding;
 import pathfinder.parser.CampusPath;
 import pathfinder.parser.CampusPathsParser;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static pathfinder.parser.CampusPathsParser.parseCampusPaths;
-
-public class CampusMap {
-    private Map<String, String> buildingNames;
+public class CampusMap implements Path.ModelAPI {
+    Map<String, String> buildingName;
     MapClass<Point, Point, Double> campusMap;
     List<CampusBuilding> campusBuildings;
+    List<CampusPath> campusPaths;
 
     /**
      * A graph of the UW campus and all the buildings on it
@@ -48,12 +46,12 @@ public class CampusMap {
     // graph with nodes and edges [a[ab ac] b[ba] ...]
 
     public CampusMap(){
-        campusMap = new HashMap<Point, Point, Double>();
-        buildingNames = new HashMap<>();
+        campusMap = new MapClass<Point, Point, Double>();
+        buildingName = new HashMap<>();
         campusBuildings = CampusPathsParser.parseCampusBuildings("campus_buildings.csv");
-        List<CampusPath> campusPaths = parseCampusPaths("campus_paths.tsv");
+        campusPaths = CampusPathsParser.parseCampusPaths("campus_paths.csv");
         for (CampusBuilding b : campusBuildings){
-            buildingNames.put(b.getShortName(), b.getLongName());
+            buildingName.put(b.getShortName(), b.getLongName());
         }
         for (CampusPath p : campusPaths){
             Point a = new Point(p.getX1(), p.getY1());
@@ -70,7 +68,7 @@ public class CampusMap {
      * @return true if it exists, else returns false
      */
     public boolean shortNameExists(String shortName) {
-        return buildingNames.containsKey(shortName);
+        return buildingName.containsKey(shortName);
     }
 
     /**
@@ -79,7 +77,7 @@ public class CampusMap {
      * @return long name of the building
      */
     public String longNameForShort(String shortName) {
-        return buildingNames.get(shortName);
+        return buildingName.get(shortName);
     }
 
     /**
@@ -87,7 +85,7 @@ public class CampusMap {
      * @return all of the names of the buildings
      */
     public Map<String, String> buildingNames() {
-        return buildingNames;
+        return buildingName;
     }
 
     /**

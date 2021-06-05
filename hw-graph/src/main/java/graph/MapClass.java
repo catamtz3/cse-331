@@ -30,7 +30,7 @@ public class MapClass<A, S, L> {
      * @spec.effects creates an empty graph
      */
     public MapClass() {
-        graphSet = new HashMap<>();
+        graphSet = new HashMap<A, List<Nodes<A, S, L>>>();
     }
 
     /**
@@ -111,11 +111,11 @@ public class MapClass<A, S, L> {
      * @spec.requires node a exists
      * @return children nodes of the specified node
      */
-    public List<String> getChildren(A a) {
+    public List<Nodes<A, S, L>> getChildren(A a) {
         if (a != null && graphSet.containsKey(a)) {
-            List<String> result = new LinkedList<>();
+            List<Nodes<A, S, L>> result = new ArrayList<>();
             for(Nodes<A, S, L> b : graphSet.get(a)){
-                result.add(b.getEdge());
+                result.add(b);
             }
             return result;
         }

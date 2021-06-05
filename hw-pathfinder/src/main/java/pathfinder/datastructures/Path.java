@@ -136,7 +136,7 @@ public class Path<A> implements Iterable<Path<A>.Segment> {
             }
 
             @Override
-            public Path.Segment next() {
+            public Path<A>.Segment next() {
                 return backingIterator.next();
             }
 
@@ -304,10 +304,10 @@ public class Path<A> implements Iterable<Path<A>.Segment> {
             if(this == obj) {
                 return true;
             }
-            if(!(obj instanceof Segment)) {
+            if(!(obj instanceof Path<?>.Segment)) {
                 return false;
             }
-            Segment other = (Segment) obj;
+            Path<?>.Segment other = (Path<?>.Segment) obj;
             return other.getStart().equals(this.getStart())
                    && other.getEnd().equals(this.getEnd())
                    && (Double.compare(this.cost, other.cost) == 0);
@@ -327,7 +327,7 @@ public class Path<A> implements Iterable<Path<A>.Segment> {
      * This interface represents the API that the text interface
      * view/controller require models to implement.
      */
-    public static interface ModelAPI {
+    public interface ModelAPI {
 
         // Note: Do not change any of these method specifications, since code inside the view
         // and controller depend on this API.
