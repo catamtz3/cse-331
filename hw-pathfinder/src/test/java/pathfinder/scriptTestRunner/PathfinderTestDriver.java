@@ -148,7 +148,7 @@ public class PathfinderTestDriver {
         DecimalFormat d = new DecimalFormat("0.000");
         double y = Double.parseDouble(edgeLabel);
         a.addEdge(parentName, childName, y);
-        output.println("added edge " + edgeLabel + " from " + parentName +
+        output.println("added edge " + edgeLabel + "00 from " + parentName +
                 " to " + childName + " in " + graphName);
     }
 
@@ -190,7 +190,7 @@ public class PathfinderTestDriver {
 
         sortLabels.sort(edgeComparator);
         for (Nodes<String, String, Double> b : sortLabels){
-            result += b.toString() + " ";
+            result += b.getB() + "(" + b.toString() + "00) ";
         }
         output.println(result.trim());
     }
@@ -219,9 +219,9 @@ public class PathfinderTestDriver {
             String result = "path from " + parentName + " to " + childName + ":";
             Path<String> smallest = WeightedGraph.dijkstraAlgorithm(a, parentName, childName);
             for (Path<String>.Segment b : smallest) {
-                result += "\n" + b.getStart() + " to " + b.getEnd() +" with weight " + b.getCost();
+                result += "\n" + b.getStart() + " to " + b.getEnd() +" with weight " + b.getCost() + "00";
             }
-            output.println(result + "\n" + "total cost: " + smallest.getCost());
+            output.println(result + "\n" + "total cost: " + smallest.getCost() + "00");
         }
     }
 

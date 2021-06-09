@@ -4,6 +4,7 @@ AddNode twoNodes a
 AddNode twoNodes b
 
 AddEdge twoNodes a b 10.0
+AddEdge twoNodes a c 5.0
 
 ListNodes twoNodes
 

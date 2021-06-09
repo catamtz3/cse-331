@@ -4,14 +4,11 @@ added node a to twoNodes
 added node b to twoNodes
 added node c to twoNodes
 
-added edge 10.0 from a to b to twoNodes
-added edge 5.0 from a to c to twoNodes
+added edge 10.000 from a to b in twoNodes
+added edge 5.000 from a to c in twoNodes
 
-twoNodes contains: a, b, c
-
-the children of a in twoNodes are: b(10.0) c(5.0)
+twoNodes contains: [a, b, c]
 
 path from a to c:
-a to b with weight 10.0
-b to c with weight 5.0
-total cost: 15.0
+a to c with weight 5.000
+total cost: 5.000

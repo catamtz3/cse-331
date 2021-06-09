@@ -12,7 +12,7 @@ public class TestSegment {
 
     private final double EPSILON = Math.pow(10.0D, -9.0D);
 
-    private Path<Point>.Segment makeSegment(Point start, Point end, Double cost) {
+    private static Path<Point>.Segment makeSegment(Point start, Point end, Double cost) {
         Path<Point> path = new Path<>(start);
         path = path.extend(end, cost);
         return path.iterator().next();
@@ -26,10 +26,15 @@ public class TestSegment {
         assertEquals(19.0D, segment.getCost(), EPSILON);
     }
 
-    private  Path<Point>.Segment seg1, seg2, seg3, seg4, seg5, seg6;
+    private static Path<Point>.Segment seg1;
+    private static Path<Point>.Segment seg2;
+    private static Path<Point>.Segment seg3;
+    private static Path<Point>.Segment seg4;
+    private static Path<Point>.Segment seg5;
+    private static Path<Point>.Segment seg6;
 
     @BeforeClass
-    public void initializeEqualityTestData() {
+    public static void initializeEqualityTestData() {
         seg1 = makeSegment(new Point(0.0D, 0.0D), new Point(0.0D, 10.0D), 10.0D);
         seg2 = makeSegment(new Point(0.0D, 0.0D), new Point(0.0D, 10.000001D), 10.000001D);
         seg3 = makeSegment(new Point(0.0D, 0.0D), new Point(25.0D, 0.0D), 25.0D);

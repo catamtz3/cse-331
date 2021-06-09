@@ -3,12 +3,13 @@ created graph twoNodes
 added node a to twoNodes
 added node b to twoNodes
 
-added edge 10.0 from a to b to twoNodes
+added edge 10.000 from a to b in twoNodes
+added edge 5.000 from a to c in twoNodes
 
-twoNodes contains: a, b
+twoNodes contains: [a, b]
 
-the children of a in twoNodes are: b(10.0)
+the children of a in twoNodes are: b(10.000)
 
 path from a to b:
-a to b with weight 10.0
-total cost: 10.0
+a to b with weight 10.000
+total cost: 10.000
