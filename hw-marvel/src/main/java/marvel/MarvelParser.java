@@ -22,6 +22,7 @@ import java.util.*;
 /**
  * Parser utility to load the Marvel Comics dataset.
  */
+
 public class MarvelParser {
     /**
      * Reads the Marvel Universe dataset. Each line of the input file contains a character name and a

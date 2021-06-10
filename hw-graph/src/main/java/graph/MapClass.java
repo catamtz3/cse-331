@@ -6,6 +6,7 @@ import java.util.*;
  */
 
 public class MapClass<A, S, L> {
+
     // Rep Invariant:
     // nodes != null, edges != null, graph != null
     // if a node is included in an edge, the node must exist
