@@ -178,16 +178,18 @@ public class MarvelTestDriver {
         String result = "the children of " + parentName + " in " + graphName + " are: ";
         List<Nodes<String, String, String>> sortLabels = new ArrayList<Nodes<String, String, String>>(a.getChildren(parentName));
         Comparator<Nodes<String,String,String>> edgeComparator = (o1, o2) -> {
-            if (!o1.getL().equals(o2.getL())) {
+            if (!o1.getB().equals(o2.getB())) {
+                return o1.getB().compareTo(o2.getB());
+            } else if (!o1.getL().equals(o2.getL())) {
                 return o1.getL().compareTo(o2.getL());
             } else {
-                return o1.getB().compareTo(o2.getB());
+                return 0;
             }
         };
 
         sortLabels.sort(edgeComparator);
         for (Nodes<String, String, String> b : sortLabels){
-            result += b.toString() + " ";
+            result += b.getB() + "(" + b.toString() + ") ";
         }
         output.println(result.trim());
     }

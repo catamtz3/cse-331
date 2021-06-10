@@ -76,17 +76,15 @@ public class MapClass<A, S, L> {
      * @param labels the edge that will link these two nodes together
      * @spec.effects builds an edge with a specific label between two nodes in the graph
      * @spec.modifies this
+     * @soec.requires inserted edge doesn't exist already
      * @return true if edge is added
      *
      */
     public boolean addEdge(A a, S b, L labels){
         if (a != null && b != null && graphSet.containsKey(a) && graphSet.containsKey(b)){
-            LinkedList<Nodes<A, S, L>> getEdge = new LinkedList<>(graphSet.get(a));
             Nodes<A, S, L> edge = new Nodes<A, S, L>(a, b, labels);
-            if (!getEdge.contains(edge)){
-                graphSet.get(a).add(edge);
-                return true;
-            }
+            graphSet.get(a).add(edge);
+            return true;
         }
         return false;
     }

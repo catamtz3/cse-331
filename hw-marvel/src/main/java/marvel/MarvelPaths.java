@@ -55,6 +55,7 @@ public class MarvelPaths {
     /**
      * Builds a graph with the given data in a file
      * @param fileName the file that will be read
+     * @spec.requires
      * @return MapClass map constructed from the file
      * @throws IOException if an error occurs while reading the file
      * @spec.requires that the file exists
@@ -62,23 +63,25 @@ public class MarvelPaths {
      */
 
     public static MapClass<String, String, String> loadGraph(String fileName) throws IOException {
-        MapClass<String, String, String> marvelMap = new MapClass<String,String,String>();
-        Map<String, List<String>> readFile = new HashMap<String, List<String>>();
-        List<String> allNames = new LinkedList<>();
+        MapClass<String, String, String> marvelMap = new MapClass<>();
+        Map<String, List<String>> readFile = new HashMap<>();
+        Set<String> allNames = new HashSet<>();
         MarvelParser.parseData(fileName, readFile, allNames);
         for (String character : allNames){
             marvelMap.addNode(character);
         }
         for (String label : readFile.keySet()){
             List<String> character = readFile.get(label);
+            int i = 1;
             for (String a : character) {
-                for (String j : character) {
-                    String initial = a;
-                    String secondary = j;
-                    if (!(initial.equals(secondary))) {
-                        marvelMap.addEdge(initial, secondary, label);
+                List<String> chars_sublist = character.subList(i, character.size());
+                for (String b : chars_sublist) {
+                    if (!(a.equals(b))) {
+                        marvelMap.addEdge(a, b, label);
+                        marvelMap.addEdge(b, a, label);
                     }
                 }
+                i++;
             }
         }
         return marvelMap;
