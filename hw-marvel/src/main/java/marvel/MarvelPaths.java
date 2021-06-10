@@ -72,16 +72,14 @@ public class MarvelPaths {
         }
         for (String label : readFile.keySet()){
             List<String> character = readFile.get(label);
-            int i = 1;
             for (String a : character) {
-                List<String> chars_sublist = character.subList(i, character.size());
-                for (String b : chars_sublist) {
-                    if (!(a.equals(b))) {
-                        marvelMap.addEdge(a, b, label);
-                        marvelMap.addEdge(b, a, label);
+                for (String j : character) {
+                    String initial = a;
+                    String secondary = j;
+                    if (!(initial.equals(secondary))) {
+                        marvelMap.addEdge(initial, secondary, label);
                     }
                 }
-                i++;
             }
         }
         return marvelMap;
